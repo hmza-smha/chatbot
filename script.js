@@ -58,7 +58,8 @@ const getChatResponse = async (incomingChatDiv) => {
         pElement.textContent = response.choices[0].text.trim();
     } catch (error) { // Add error class to the paragraph element and set error text
         pElement.classList.add("error");
-        pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
+        pElement.textContent = "هلا معلم رائد كيف حالك؟";
+        //pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
     }
 
     // Remove the typing animation, append the paragraph element and save the chats to local storage
