@@ -15,7 +15,7 @@ const loadDataFromLocalstorage = () => {
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
     const defaultText = `<div class="default-text">
-                            <h1>ChatGPT Clone</h1>
+                            <h1>Chatbot AI</h1>
                             <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
                         </div>`
 
@@ -32,31 +32,28 @@ const createChatElement = (content, className) => {
 }
 
 const getChatResponse = async (incomingChatDiv) => {
-    const API_URL = "https://api.openai.com/v1/completions";
+    const API_URL = "http://127.0.0.1:8000/ask/";
     const pElement = document.createElement("p");
 
-    // Define the properties and data for the API request
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-            model: "text-davinci-003",
-            prompt: userText,
-            max_tokens: 2048,
-            temperature: 0.2,
-            n: 1,
-            stop: null
-        })
-    }
+    const payload = {
+        prompt: userText
+    };
+      
+    const options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    };
 
     // Send POST request to API, get response and set the reponse as paragraph element text
     try {
-        const response = await (await fetch(API_URL, requestOptions)).json();
-        pElement.textContent = response.choices[0].text.trim();
+        const response = await (await fetch(API_URL, options)).json();
+        pElement.textContent = response;
     } catch (error) { // Add error class to the paragraph element and set error text
+        console.error(error)
         pElement.classList.add("error");
         pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
     }
