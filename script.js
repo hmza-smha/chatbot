@@ -1,11 +1,15 @@
+
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
 const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
+const API_URL = "https://chatbotapi-1nuh.onrender.com/ask/"
+// const API_URL = "http://127.0.0.1:8000/ask/";
+
+
 let userText = null;
-const API_KEY = "PASTE-YOUR-API-KEY-HERE"; // Paste your API key here
 
 const loadDataFromLocalstorage = () => {
     // Load saved chats and theme from local storage and apply/add on the page
@@ -32,7 +36,6 @@ const createChatElement = (content, className) => {
 }
 
 const getChatResponse = async (incomingChatDiv) => {
-    const API_URL = "http://127.0.0.1:8000/ask/";
     const pElement = document.createElement("p");
 
     const payload = {
